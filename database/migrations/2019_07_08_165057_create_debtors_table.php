@@ -15,9 +15,12 @@ class CreateDebtorsTable extends Migration
     {
         Schema::create('debtors', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('job_id')->unsigned();
+            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
             $table->string('source_of_debt');
             $table->string('kind_of_work');
-            $table->string('job_availability');
             $table->double('value', 12,2);
             $table->timestamps();
         });
