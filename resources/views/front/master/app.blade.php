@@ -22,7 +22,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
     <!--Icons-->
-    <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+    <script src="https://kit.fontawesome.com/4849e58e1e.js"></script>
 
     <!--Favicon-->
     <link rel="icon" href="images/favicon.png" type="image/png">
@@ -93,6 +93,9 @@
 <!--jQuery-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<!-- JQuery-mask -->
+<script src="{{url('assets/front/js/jquery.mask.js')}}"></script>
+
 <!--Bootstrap-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
         integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
@@ -100,6 +103,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
+
+<script src="{{url('assets/front/js/scripts.js')}}"></script>
 
 </body>
 </html>

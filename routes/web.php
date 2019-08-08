@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'Front\SiteController@index');
+Route::resource('/users', 'Front\UserController');
 
 Auth::routes();
 

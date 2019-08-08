@@ -10,14 +10,14 @@
         <form action="" class="form-home text-center">
             <div class="row">
                 <div class="col-6">
-                    <a href="{{route('register', ['type' => 'debtor'])}}">
+                    <a href="{{route('users.create', ['type' => 'debtor'])}}">
                         <button class="btn btn-success" type="button">
                             Quero emprestado <i class="fa fa-money" aria-hidden="true"></i>
                         </button>
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="{{route('register', ['type' => 'creditor'])}}">
+                    <a href="{{route('users.create', ['type' => 'creditor'])}}">
                         <button class="btn" type="button">
                             Quero ser investidor <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
