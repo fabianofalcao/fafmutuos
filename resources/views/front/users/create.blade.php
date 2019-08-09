@@ -201,7 +201,7 @@
                                 <select name="job_id" id="job_id" class="form-control" required>
                                     <option value="">Selecione a mão de obra especializada</option>
                                     @foreach($jobs as $item)
-                                        <option value="{{$item->id}}">{{$item->description}}</option>
+                                        <option value="{{$item->id}}" {{(old('job_id') == $item ? 'selected' : '')}}>{{$item->description}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -243,7 +243,7 @@
                                 <select name="service_id" id="service_id" class="form-control">
                                     <option value="">Selecione o tipo de serviço</option>
                                     @foreach($services as $item)
-                                        <option value="{{$item->id}}">{{$item->description}}</option>
+                                        <option value="{{$item->id}}" {{(old('service_id') == $item ? 'selected' : '')}}>{{$item->description}}</option>
                                     @endforeach
                                 </select>
                             </div>

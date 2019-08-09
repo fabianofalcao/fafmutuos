@@ -27,7 +27,7 @@ class FormUsers extends FormRequest
         return [
             'name'      => "required|min:3|max:100",
             'email'     => "required|min:6|max:100|email|unique:users,email,{$id},id",
-            'cnpj'     => "required|min:14|max:15",
+            'cnpj'     => "required|min:17|max:18",
             'type'      => "required|in:debtor,creditor",
             'password'  => 'max:16|confirmed',
         ];

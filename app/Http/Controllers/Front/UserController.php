@@ -7,9 +7,17 @@ use App\Models\Job;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class UserController extends Controller
 {
+    private $model;
+
+    public function __construct(User $model)
+    {
+        $this->model = $model;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +49,13 @@ class UserController extends Controller
      */
     public function store(FormUsers $request)
     {
-        dd($request->all());
+        //dd($request->all());
+        //dd($this->model);
+        $userCreate = $this->model->newUser($request);
+        dd($userCreate);
+
+        //return redirect()->route('admin.'.$this->route.'.edit', [$userCreate->id])->with(['color' => 'green', 'message' => 'Cadastro realizado com sucesso!']);
+
     }
 
     /**
@@ -63,7 +77,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
