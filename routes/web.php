@@ -15,6 +15,13 @@ Route::get('/', 'Front\SiteController@index');
 Route::resource('/users', 'Front\UserController');
 
 Auth::routes();
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'middleware' => ['auth']], function (){
+    Route::get('/', 'AdminController@home')->name('home');
+
+    Route::resource('/users', 'UserController');
+});
 

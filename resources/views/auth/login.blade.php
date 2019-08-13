@@ -40,22 +40,26 @@
                                     </div>
                                 </div>
 
+
                                 <div class="row mb-0">
-                                    <div class="form-group text-right">
-                                        <div class="col-md-12 text-right">
+                                    <div class="col-md-12">
+                                        <div class="form-group text-right">
                                             <button type="submit" class="btn btn-primary">
                                                 Entrar
                                             </button>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row mb-0">
-                                    <div class="form-group">
-                                        @if (Route::has('password.request'))
-                                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                Esqueci minha senha
-                                            </a>
-                                        @endif
+                                    <div class="col-md-12">
+                                        <div class="form-group text-right">
+                                            @if (Route::has('password.request'))
+                                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                    Esqueci minha senha
+                                                </a>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </form>

@@ -76,4 +76,12 @@ class User extends Authenticatable
         return $newUser;
 
     }
+
+
+    public function setLastLogin()
+    {
+        $this->last_login_at = date('Y-m-d');
+        $this->last_login_ip = $_SERVER['REMOTE_ADDR'];
+        return $updUser = $this->save();
+    }
 }

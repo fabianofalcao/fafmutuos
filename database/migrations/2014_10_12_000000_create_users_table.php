@@ -32,6 +32,8 @@ class CreateUsersTable extends Migration
             $table->string('state')->nullable();
             $table->string('city')->nullable();
 
+            $table->boolean('is_admin')->default(false);
+
             $table->rememberToken();
             $table->dateTime('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
