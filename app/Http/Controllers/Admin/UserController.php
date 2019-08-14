@@ -42,7 +42,7 @@ class UserController extends Controller
             (object) ['url' => route('admin.home'), 'title' => 'Home',],
             (object) ['url' => '', 'title' => $page,],
         ];
-        return view('admin.users.index', compact('colunmsTitle', 'list', 'routeName', 'page', 'btnCaption', 'breadcrumb'));
+        return view('admin.'.$routeName.'.index', compact('colunmsTitle', 'list', 'routeName', 'page', 'btnCaption', 'breadcrumb'));
     }
 
     /**
@@ -72,9 +72,29 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+        $register = $this->model->find($id);
+
+        if(!$register)
+            return redirect()->back();
+
+        $routeName = $this->route;
+        $page = $this->page;
+        $title =
+
+        $breadcrumb = [
+            (object) ['url' => route('admin.home'), 'title' => 'Home',],
+            (object) ['url' => route('admin.users.index'), 'title' => 'Lista de '.$page['plural']],
+            (object) ['url' => '', 'title' => "Detalhes do ". $page['singular']],
+        ];
+
+        $delete = false;
+        if($request->delete ?? false){
+            $delete = true;
+        }
+
+        return view('admin.'.$routeName.'.show', compact('register', 'routeName', 'page', 'breadcrumb', 'delete'));
     }
 
     /**
@@ -108,6 +128,35 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $register = $this->model->find($id);
+
+        if(!$register)
+            return redirect()->back()->with(['color' => 'red', 'message' => 'Falha ao excluir registro.'])->withInput();
+
+        if($register->delete()){
+            return redirect()->route('admin.'.$this->route.'.index')->with(['color' => 'green', 'message' => 'Registro excluído com sucesso!']);
+        }else{
+            return redirect()->back()->with(['color' => 'red', 'message' => 'Falha ao excluir registro.'])->withInput();
+        }
+
+    }
+
+
+    public function search(Request $request)
+    {
+        $dataForm = $request->except('_token');
+
+        $colunmsTitle = $this->colunms;
+        $list = $this->model->search($request, $this->totalPerPage);
+        $routeName = $this->route;
+        $page = "Lista de ". $this->page['plural'];
+        $btnCaption = "Criar ".$this->page['singular'];
+
+        $breadcrumb = [
+            (object) ['url' => route('admin.home'), 'title' => 'Home',],
+            (object) ['url' => '', 'title' => $page,],
+        ];
+
+        return view('admin.'.$routeName.'.index', compact('colunmsTitle', 'list', 'routeName', 'page', 'btnCaption', 'breadcrumb', 'dataForm'));
     }
 }

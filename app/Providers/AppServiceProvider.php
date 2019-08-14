@@ -28,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('front.components.messages', 'message');
 
         Blade::component('admin.components.content-header', 'contentheader');
+        Blade::component('admin.components.message', 'message_admin');
     }
 }

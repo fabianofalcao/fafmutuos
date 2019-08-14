@@ -84,4 +84,36 @@ class User extends Authenticatable
         $this->last_login_ip = $_SERVER['REMOTE_ADDR'];
         return $updUser = $this->save();
     }
+
+
+    public function search($request, $totalPage = 10)
+    {
+        $keySearch = $request->search;
+        return $this->where('name', 'LIKE', "%{$keySearch}%")->orWhere('email', 'LIKE', "%{$keySearch}%")->paginate($totalPage);
+    }
+
+    public function getZipcodeAttribute($value)
+    {
+        return substr($value, 0,5). '-' .substr($value, 5,3);
+    }
+
+    public function getCreditorAttribute($value)
+    {
+        return ($value === 1 ? 'Sim' : 'Não');
+    }
+
+    public function getDebtorAttribute($value)
+    {
+        return ($value === 1 ? 'Sim' : 'Não');
+    }
+
+    public function getDocumentAttribute($value)
+    {
+        return substr($value, 0, 2).'.'.substr($value, 2,3).'.'.substr($value, 5,3).'/'.substr($value, 8,4).'-'.substr($value,12,2);
+    }
+
+    public function getIsActiveAttribute($value)
+    {
+        return ($value === 1 ? 'Ativo' : 'Inativo');
+    }
 }

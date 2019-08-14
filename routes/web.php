@@ -23,5 +23,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     Route::get('/', 'AdminController@home')->name('home');
 
     Route::resource('/users', 'UserController');
+    Route::any('usuarios/search', 'UserController@search')->name('users.search');
+
 });
 
