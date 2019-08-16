@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <button type="button" class="btn btn-sm btn-success">{{$btnCaption}}</button>
+                    <a href="{{route('admin.'.$routeName.'.create')}}" class="btn btn-sm btn-success">{{$btnCaption}}</a>
                     <form class="float-right" action="{{route('admin.'.$routeName.'.search')}}" method="GET">
                         @csrf
                         <div class="card-tools">
@@ -67,7 +67,7 @@
                 <div class="card-footer clearfix">
                     <ul class="float-right pt-3">
                         <button type="button" class="btn btn-sm btn-outline-secondary">Voltar</button>
-                        <button type="button" class="btn btn-sm btn-success">{{$btnCaption}}</button>
+                        <a href="{{route('admin.'.$routeName.'.create')}}" class="btn btn-sm btn-success">{{$btnCaption}}</a>
                     </ul>
                 </div>
             </div>

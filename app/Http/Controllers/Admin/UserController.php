@@ -52,7 +52,19 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $routeName = $this->route;
+        $page = $this->page;
+
+        $breadcrumb = [
+            (object) ['url' => route('admin.home'), 'title' => 'Home',],
+            (object) ['url' => route('admin.users.index'), 'title' => 'Lista de '.$page['plural']],
+            (object) ['url' => '', 'title' => "Adicionar ". $page['singular']],
+        ];
+        $status = ['' => 'Selecione...', '1' => 'Ativo', '0' => 'Inativo'];
+        $statusAdm = ['' => 'Selecione...', '1' => 'Sim', '0' => 'Não'];
+        $jobs = [];
+
+        return view('admin.'.$routeName.'.create', compact('routeName', 'page', 'breadcrumb', 'status', 'statusAdm', 'jobs'));
     }
 
     /**

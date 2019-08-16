@@ -13,16 +13,16 @@
         <div class="card bg-light">
             <div class="card-body">
 
-                <div class="row">
-                    @if($delete)
+                @if($delete)
+                    <div class="row">
                         <div class="col-md-12">
-                            <div class="alert alert-danger" role="alert">
-                                <i class="fas fa fa-asterisk"></i>
+                            @message_admin(['color' => 'danger', 'icon' => 'asterisk'])
                                 Deseja realmente excluir o {{$page['singular'] }} <span class="text-uppercase text-bold text-justify">{{$register->name}}</span>? A exclusão desse registro implicará na eliminação total do mesmo, incluíndo suas dependências.
-                            </div>
+                            @endmessage_admin
                         </div>
-                    @endif
-                </div>
+                    </div>
+                @endif
+
                 <div class="row">
                     <div class="col-7">
                         <h2 class="lead"><b>Nome:</b> {{$register->name}}<br/><b>CNPJ:</b> {{$register->document}}</h2>
