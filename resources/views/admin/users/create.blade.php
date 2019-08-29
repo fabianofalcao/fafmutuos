@@ -20,11 +20,13 @@
                     <i class="fas fa-times"></i></button>
             </div>
         </div>
-        <div class="card-body">
+
+        <form class="form-horizontal" method="POST" action="{{ route('users.store') }}">
+            {{ csrf_field() }}
+            <div class="card-body">
 
 
-            <form class="form-horizontal" method="POST" action="{{ route('users.store') }}">
-                {{ csrf_field() }}
+
                 <h4>Dados de acesso</h4>
                 <div class="row">
                     <div class="col-12">
@@ -69,6 +71,26 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-12">
+                        <label for="type">Tipo: *</label>
+                        <div class="card text-white bg-dark mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input ml-3" type="checkbox" id="debtor" name="debtor">
+                                <label class="form-check-label" for="debtor">Devedor</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input ml-3" type="checkbox" id="creditor"  name="creditor">
+                                <label class="form-check-label" for="creditor">Credor</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input ml-3" type="checkbox" id="is_admin"  name="is_admin">
+                                <label class="form-check-label" for="creditor">Administrador</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-6">
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password">Senha *</label>
@@ -89,6 +111,17 @@
                                     <strong>{{ $errors->first('password') }}</strong>
                                 </span>
                             @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="type">Situação *</label>
+                        <div class="card text-white bg-dark mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input mb-3 ml-3 mt-3" type="checkbox" id="is_active" name="is_active" checked>
+                                <label class="form-check-label" for="debtor">Usuário ativo?</label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -177,129 +210,19 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-
-                <h4 class="mt-3">Proposta</h4>
-
-                @if(true)
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group{{ $errors->has('source_of_debt') ? ' has-error' : '' }}">
-                                <label for="source_of_debt">Qual a necessidade do crédito *</label>
-                                <input id="source_of_debt" type="text" class="form-control" name="source_of_debt" value="{{ old('source_of_debt') }}" placeholder="Necessidade do crédito" required>
-                                @if ($errors->has('source_of_debt'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('source_of_debt') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group{{ $errors->has('job_id') ? ' has-error' : '' }}">
-                                <label for="job_id">Tipo de mão de obra especializada *</label>
-                                <select name="job_id" id="job_id" class="form-control" required>
-                                    <option value="">Selecione a mão de obra especializada</option>
-                                    @foreach($jobs as $item)
-                                        <option value="{{$item->id}}" {{(old('job_id') == $item ? 'selected' : '')}}>{{$item->description}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group{{ $errors->has('value') ? ' has-error' : '' }}">
-                                <label for="value">Valor pretendido</label>
-                                <input id="value" type="text" class="form-control" name="value" value="{{ old('value') }}" placeholder="Valor pretendido" required>
-                                @if ($errors->has('value'))
-                                    <span class="help-block">
-                                    <strong>{{ $errors->first('value') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group{{ $errors->has('economic_sector_invest') ? ' has-error' : '' }}">
-                                <label for="economic_sector_invest">Qual o setor econômico?</label>
-                                <input id="economic_sector_invest" type="text" class="form-control" name="source_of_debt" value="{{ old('economic_sector_invest') }}" placeholder="Setor econômico" required>
-                                @if ($errors->has('economic_sector_invest'))
-                                    <span class="help-block">
-                                    <strong>{{ $errors->first('economic_sector_invest') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group{{ $errors->has('service_id') ? ' has-error' : '' }}">
-                                <label for="service_id">Tipo de serviço</label>
-                                <select name="service_id" id="service_id" class="form-control">
-                                    <option value="">Selecione o tipo de serviço</option>
-                                    @foreach($services as $item)
-                                        <option value="{{$item->id}}" {{(old('service_id') == $item ? 'selected' : '')}}>{{$item->description}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group{{ $errors->has('value') ? ' has-error' : '' }}">
-                                <label for="value">Valor a investir</label>
-                                <input id="value" type="text" class="form-control" name="value" value="{{ old('value') }}" placeholder="Valor a investir" required>
-                                @if ($errors->has('value'))
-                                    <span class="help-block">
-                                    <strong>{{ $errors->first('value') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
-
-
-                <hr>
-                <div class="row mt-5">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Cadastrar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+            <div class="card-footer">
+                <div class="text-right">
+                        <a href="{{route('admin.'.$routeName.'.index')}}" class="btn btn-sm btn-light">
+                            <i class="fas fa-undo"></i> Voltar
+                        </a>
+                        <button type="submit" class="btn btn-sm btn-success" title="Cadastrar"><i class="fas fa-save"></i> Cadastrar</button>
+                    </form>
                 </div>
+            </div>
 
-
-
-
-
-
-
-
-
-
-            </form>
-
-
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-            Footer
-        </div>
-        <!-- /.card-footer-->
+        </form>
     </div>
 
 @endsection
