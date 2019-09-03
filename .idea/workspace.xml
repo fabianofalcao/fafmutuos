@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04d65456-642b-4e58-8079-e9e484d5f9ac" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/admin/js/jquery.mask.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/admin/js/scripts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/users/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/master/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/master/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +125,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/admin/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/users" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -135,9 +135,11 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev_php\fafmutuos\resources\views\admin\users" />
       <recent name="C:\dev_php\fafmutuos\public\assets\admin\js" />
       <recent name="C:\dev_php\fafmutuos\resources\views\admin\master" />
       <recent name="C:\dev_php\fafmutuos\public\assets\front\js" />
@@ -187,6 +189,9 @@
       <workItem from="1565892651038" duration="2298000" />
       <workItem from="1565974266600" duration="4010000" />
       <workItem from="1566210157247" duration="5939000" />
+      <workItem from="1567430347546" duration="3057000" />
+      <workItem from="1567443830987" duration="5581000" />
+      <workItem from="1567515101143" duration="4321000" />
     </task>
     <servers />
   </component>

@@ -74,7 +74,70 @@ class User extends Authenticatable
         }
 
         return $newUser;
+    }
 
+    public function newUserAdmin($request)
+    {
+        $creditor = new Creditor();
+        $debtor = new Debtor();
+        //dd($request->all());
+        $this->name = $request->name;
+        $this->password = ($request->password ? bcrypt($request->password) : bcrypt('opgsv5@t,'));
+        $this->email = $request->email;
+
+        $this->debtor = ($request->debtor == 'on' ? 1 : 0);
+        $this->creditor = ($request->creditor == 'on' ? 1 : 0);
+        //dd($request->creditor, $this->creditor);
+        $this->is_admin = ($request->is_admin == 'on' ? 1 : 0);
+        $this->is_active = ($request->is_active == 'on' ? 1 : 0);
+
+        $this->document = str_replace(['.','/','-'], '', $request->cnpj);
+        $this->zipcode = str_replace(['.','/','-'], '',$request->zipcode);
+        $this->street = $request->street;
+        $this->number = $request->number;
+        $this->complement = $request->complement;
+        $this->neighborhood = $request->neighborhood;
+        $this->state = $request->state;
+        $this->city = $request->city;
+        $this->save();
+        $newUser = $this;
+
+        $data = $request->all();
+        $data['user_id'] = $newUser->id;
+
+        if($newUser->debtor == 1){
+            $newDebtor = $debtor->create($data);
+        }
+
+        if($newUser->creditor == 1){
+            $newCreditor = $creditor->create($data);
+        }
+
+        return $newUser;
+
+    }
+
+
+    public function updateUserAdmin($request)
+    {
+        $this->name = $request->name;
+        if($request->password && $request->password != '')
+            $this->password = bcrypt($request->password);
+        $this->email = $request->email;
+        $this->debtor = ($request->debtor == 'on' ? 1 : 0);
+        $this->creditor = ($request->creditor == 'on' ? 1 : 0);
+        $this->is_admin = ($request->is_admin == 'on' ? 1 : 0);
+
+        $this->is_active = ($request->is_active == 'on' ? 1 : 0);
+        $this->document = str_replace(['.','/','-'], '', $request->cnpj);
+        $this->zipcode = str_replace(['.','/','-'], '',$request->zipcode);
+        $this->street = $request->street;
+        $this->number = $request->number;
+        $this->complement = $request->complement;
+        $this->neighborhood = $request->neighborhood;
+        $this->state = $request->state;
+        $this->city = $request->city;
+        return $this->save();
     }
 
 

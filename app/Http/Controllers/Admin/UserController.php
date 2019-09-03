@@ -75,7 +75,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        if($this->model->newUserAdmin($request))
+            return redirect()->route('admin.users.index')->with(['color' => 'success', 'message' => 'Cadastro editado com sucesso!']);
+        else
+            return redirect()
+                ->back()
+                ->with(['color' => 'danger', 'message' => 'Falha ao realizar cadasto!'])
+                ->withInput();
     }
 
     /**
@@ -89,7 +95,7 @@ class UserController extends Controller
         $register = $this->model->find($id);
 
         if(!$register)
-            return redirect()->back();
+            return redirect()->back()->with(['color' => 'danger', 'message' => 'Cadastro inexistente!']);
 
         $routeName = $this->route;
         $page = $this->page;
@@ -117,7 +123,26 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $register = $this->model->find($id);
+
+        if(!$register)
+            return redirect()
+                ->back()
+                ->with(['color' => 'danger', 'message' => 'Falha ao editar! regitro inexistente.']);
+
+        $routeName = $this->route;
+        $page = $this->page;
+
+        $breadcrumb = [
+            (object) ['url' => route('admin.home'), 'title' => 'Home',],
+            (object) ['url' => route('admin.users.index'), 'title' => 'Lista de '.$page['plural']],
+            (object) ['url' => '', 'title' => "Editar ". $page['singular']],
+        ];
+        $status = ['' => 'Selecione...', '1' => 'Ativo', '0' => 'Inativo'];
+        $statusAdm = ['' => 'Selecione...', '1' => 'Sim', '0' => 'Não'];
+        $jobs = [];
+
+        return view('admin.'.$routeName.'.edit', compact('routeName', 'page', 'breadcrumb', 'status', 'statusAdm', 'jobs', 'register'));
     }
 
     /**
@@ -129,7 +154,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $register = $this->model->find($id);
+
+        if(!$register)
+            return redirect()
+                ->back()
+                ->with('error', 'Falha ao editar. Registro inexistente!');
+
+        if($register->updateUserAdmin($request))
+            return redirect()->route('admin.users.index')->with(['color' => 'success', 'message' => 'Cadastro editado com sucesso!']);
+        else
+            return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao editar cadastro!'])->withInput();
     }
 
     /**
@@ -143,12 +178,12 @@ class UserController extends Controller
         $register = $this->model->find($id);
 
         if(!$register)
-            return redirect()->back()->with(['color' => 'red', 'message' => 'Falha ao excluir registro.'])->withInput();
+            return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao excluir registro! Registro inexistente.'])->withInput();
 
         if($register->delete()){
-            return redirect()->route('admin.'.$this->route.'.index')->with(['color' => 'green', 'message' => 'Registro excluído com sucesso!']);
+            return redirect()->route('admin.'.$this->route.'.index')->with(['color' => 'success', 'message' => 'Registro excluído com sucesso!']);
         }else{
-            return redirect()->back()->with(['color' => 'red', 'message' => 'Falha ao excluir registro.'])->withInput();
+            return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao excluir registro.'])->withInput();
         }
 
     }

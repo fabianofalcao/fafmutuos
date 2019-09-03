@@ -12,6 +12,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
+
+                    @if(session()->exists('message'))
+                        @message(['color' => session()->get('color')])
+                        {{session()->get('message')}}
+                        @endmessage
+                    @endif
+
                     <a href="{{route('admin.'.$routeName.'.create')}}" class="btn btn-sm btn-success">{{$btnCaption}}</a>
                     <form class="float-right" action="{{route('admin.'.$routeName.'.search')}}" method="GET">
                         @csrf
