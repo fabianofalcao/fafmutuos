@@ -2,28 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
+use App\Models\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class JobController extends Controller
 {
-    private $route = 'users';
-    private $page = ['plural' => 'usuários', 'singular' => 'usuário'];
+    private $route = 'jobs';
+    private $page = ['plural' => 'mãos-de-obra', 'singular' => 'mão-de-obra'];
     private $totalPerPage = 10;
     private $model;
-    private $colunmSearch = ['name', 'email', 'is_active',];
+    private $colunmSearch = ['description'];
     private $colunms = [
-        'name' => ['value' => 'Nome', 'aling' => 'left'],
-        'is_active' => ['value' => 'Status', 'aling' => 'left'],
-        'email' => ['value' => 'E-mail', 'aling' => 'left'],
+        'description' => ['value' => 'Descrição', 'aling' => 'left'],
         'actions' => ['value' => 'Ações', 'aling' => 'center'],
     ];
 
-    public function __construct(User $model)
+    public function __construct(Job $model)
     {
         $this->model = $model;
     }
+
 
     /**
      * Display a listing of the resource.
@@ -57,14 +56,15 @@ class UserController extends Controller
 
         $breadcrumb = [
             (object) ['url' => route('admin.home'), 'title' => 'Home',],
-            (object) ['url' => route('admin.users.index'), 'title' => 'Lista de '.$page['plural']],
+            (object) ['url' => route('admin.jobs.index'), 'title' => 'Lista de '.$page['plural']],
             (object) ['url' => '', 'title' => "Adicionar ". $page['singular']],
         ];
-        $status = ['' => 'Selecione...', '1' => 'Ativo', '0' => 'Inativo'];
-        $statusAdm = ['' => 'Selecione...', '1' => 'Sim', '0' => 'Não'];
-        $jobs = [];
+        return view('admin.'.$routeName.'.create', compact('routeName', 'page', 'breadcrumb'));
+    }
 
-        return view('admin.'.$routeName.'.create', compact('routeName', 'page', 'breadcrumb', 'status', 'statusAdm', 'jobs'));
+    public function show($id)
+    {
+    //
     }
 
     /**
@@ -75,45 +75,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if($this->model->newUserAdmin($request))
-            return redirect()->route('admin.users.index')->with(['color' => 'success', 'message' => 'Cadastro realizado com sucesso!']);
-        else
-            return redirect()
-                ->back()
-                ->with(['color' => 'danger', 'message' => 'Falha ao realizar cadasto!'])
-                ->withInput();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id, Request $request)
-    {
-        $register = $this->model->find($id);
-
-        if(!$register)
-            return redirect()->back()->with(['color' => 'danger', 'message' => 'Cadastro inexistente!']);
-
-        $routeName = $this->route;
-        $page = $this->page;
-        $title =
-
-        $breadcrumb = [
-            (object) ['url' => route('admin.home'), 'title' => 'Home',],
-            (object) ['url' => route('admin.users.index'), 'title' => 'Lista de '.$page['plural']],
-            (object) ['url' => '', 'title' => "Detalhes do ". $page['singular']],
-        ];
-
-        $delete = false;
-        if($request->delete ?? false){
-            $delete = true;
+        $dataForm = $request->all();
+        $insert = $this->model->create($dataForm);
+        if($insert){
+            return redirect()->route('admin.jobs.index')->with(['color' => 'success', 'message' => 'Cadastro realizado com sucesso!']);
+        } else {
+            return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao realizar cadasto!']);
         }
-
-        return view('admin.'.$routeName.'.show', compact('register', 'routeName', 'page', 'breadcrumb', 'delete'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -135,14 +105,10 @@ class UserController extends Controller
 
         $breadcrumb = [
             (object) ['url' => route('admin.home'), 'title' => 'Home',],
-            (object) ['url' => route('admin.users.index'), 'title' => 'Lista de '.$page['plural']],
+            (object) ['url' => route('admin.jobs.index'), 'title' => 'Lista de '.$page['plural']],
             (object) ['url' => '', 'title' => "Editar ". $page['singular']],
         ];
-        $status = ['' => 'Selecione...', '1' => 'Ativo', '0' => 'Inativo'];
-        $statusAdm = ['' => 'Selecione...', '1' => 'Sim', '0' => 'Não'];
-        $jobs = [];
-
-        return view('admin.'.$routeName.'.edit', compact('routeName', 'page', 'breadcrumb', 'status', 'statusAdm', 'jobs', 'register'));
+        return view('admin.'.$routeName.'.edit', compact('register','routeName', 'page', 'breadcrumb'));
     }
 
     /**
@@ -161,8 +127,8 @@ class UserController extends Controller
                 ->back()
                 ->with('error', 'Falha ao editar. Registro inexistente!');
 
-        if($register->updateUserAdmin($request))
-            return redirect()->route('admin.users.index')->with(['color' => 'success', 'message' => 'Cadastro editado com sucesso!']);
+        if($register->update($request->all()))
+            return redirect()->route('admin.jobs.index')->with(['color' => 'success', 'message' => 'Cadastro editado com sucesso!']);
         else
             return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao editar cadastro!'])->withInput();
     }
@@ -185,12 +151,12 @@ class UserController extends Controller
         }else{
             return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao excluir registro.'])->withInput();
         }
-
     }
 
 
     public function search(Request $request)
     {
+        dd($request->all());
         $dataForm = $request->except('_token');
 
         $colunmsTitle = $this->colunms;

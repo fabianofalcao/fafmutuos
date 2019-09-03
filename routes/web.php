@@ -25,5 +25,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     Route::resource('/users', 'UserController');
     Route::any('usuarios/search', 'UserController@search')->name('users.search');
 
+    Route::resource('/jobs', 'JobController');
+    Route::any('jobs/search', 'JobController@search')->name('jobs.search');
+
 });
 
