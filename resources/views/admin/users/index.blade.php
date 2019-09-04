@@ -73,7 +73,7 @@
 
                 <div class="card-footer clearfix">
                     <ul class="float-right pt-3">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Voltar</button>
+                        <a href="{{route('admin.home')}}" class="btn btn-sm btn-outline-secondary">Voltar</a>
                         <a href="{{route('admin.'.$routeName.'.create')}}" class="btn btn-sm btn-success">{{$btnCaption}}</a>
                     </ul>
                 </div>

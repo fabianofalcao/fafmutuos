@@ -22,11 +22,13 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'middleware' => ['auth']], function (){
     Route::get('/', 'AdminController@home')->name('home');
 
-    Route::resource('/users', 'UserController');
     Route::any('usuarios/search', 'UserController@search')->name('users.search');
+    Route::resource('/users', 'UserController');
 
-    Route::resource('/jobs', 'JobController');
     Route::any('jobs/search', 'JobController@search')->name('jobs.search');
+    Route::resource('/jobs', 'JobController');
 
+    Route::any('economic_setors/search', 'EconomicSetorController@search')->name('economic_setors.search');
+    Route::resource('/economic_setors', 'EconomicSetorController');
 });
 

@@ -118,7 +118,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{route('admin.jobs.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-tasks"></i>
                             <p>
                                 Mão de obras (Serviços)
@@ -126,7 +126,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{route('admin.economic_setors.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Setor Econômico

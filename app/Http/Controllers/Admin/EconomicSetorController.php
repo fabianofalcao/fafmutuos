@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Job;
+use App\Models\EconomicSector;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class JobController extends Controller
+class EconomicSetorController extends Controller
 {
-    private $route = 'jobs';
-    private $page = ['plural' => 'mãos-de-obra', 'singular' => 'mão-de-obra'];
+    private $route = 'economic_setors';
+    private $page = ['plural' => 'setores econômicos', 'singular' => 'setor econômico'];
     private $totalPerPage = 10;
     private $model;
     private $colunmSearch = ['description'];
@@ -18,11 +18,10 @@ class JobController extends Controller
         'actions' => ['value' => 'Ações', 'aling' => 'center'],
     ];
 
-    public function __construct(Job $model)
+    public function __construct(EconomicSector $model)
     {
         $this->model = $model;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -56,7 +55,7 @@ class JobController extends Controller
 
         $breadcrumb = [
             (object) ['url' => route('admin.home'), 'title' => 'Home',],
-            (object) ['url' => route('admin.jobs.index'), 'title' => 'Lista de '.$page['plural']],
+            (object) ['url' => route('admin.'.$routeName.'.index'), 'title' => 'Lista de '.$page['plural']],
             (object) ['url' => '', 'title' => "Adicionar ". $page['singular']],
         ];
         return view('admin.'.$routeName.'.create', compact('routeName', 'page', 'breadcrumb'));
@@ -70,10 +69,11 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+        $routeName = $this->route;
         $dataForm = $request->all();
         $insert = $this->model->create($dataForm);
         if($insert){
-            return redirect()->route('admin.jobs.index')->with(['color' => 'success', 'message' => 'Cadastro realizado com sucesso!']);
+            return redirect()->route('admin.'.$routeName.'.index')->with(['color' => 'success', 'message' => 'Cadastro realizado com sucesso!']);
         } else {
             return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao realizar cadasto!']);
         }
@@ -100,7 +100,7 @@ class JobController extends Controller
 
         $breadcrumb = [
             (object) ['url' => route('admin.home'), 'title' => 'Home',],
-            (object) ['url' => route('admin.jobs.index'), 'title' => 'Lista de '.$page['plural']],
+            (object) ['url' => route('admin.'.$routeName.'.index'), 'title' => 'Lista de '.$page['plural']],
             (object) ['url' => '', 'title' => "Editar ". $page['singular']],
         ];
         return view('admin.'.$routeName.'.edit', compact('register','routeName', 'page', 'breadcrumb'));
@@ -115,6 +115,7 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $routeName = $this->route;
         $register = $this->model->find($id);
 
         if(!$register)
@@ -123,7 +124,7 @@ class JobController extends Controller
                 ->with('error', 'Falha ao editar. Registro inexistente!');
 
         if($register->update($request->all()))
-            return redirect()->route('admin.jobs.index')->with(['color' => 'success', 'message' => 'Cadastro editado com sucesso!']);
+            return redirect()->route('admin.'.$routeName.'.index')->with(['color' => 'success', 'message' => 'Cadastro editado com sucesso!']);
         else
             return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao editar cadastro!'])->withInput();
     }
