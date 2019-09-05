@@ -155,6 +155,12 @@ class User extends Authenticatable
         return $this->where('name', 'LIKE', "%{$keySearch}%")->orWhere('email', 'LIKE', "%{$keySearch}%")->paginate($totalPage);
     }
 
+
+    public function debtors()
+    {
+        return $this->hasMany(Debtor::class);
+    }
+
     public function getZipcodeAttribute($value)
     {
         return substr($value, 0,5). '-' .substr($value, 5,3);

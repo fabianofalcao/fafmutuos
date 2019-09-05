@@ -2,28 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Debtor;
+use App\Models\Job;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class DebtorController extends Controller
 {
-    private $route = 'users';
-    private $page = ['plural' => 'usuários', 'singular' => 'usuário'];
+    private $route = 'debtors';
+    private $page = ['plural' => 'propostas de empréstimos', 'singular' => 'proposta de empréstimo'];
     private $totalPerPage = 10;
-    private $model;
-    private $colunmSearch = ['name', 'email', 'is_active',];
+    private $model, $modelUser, $modelJob;
+    private $colunmSearch = ['Devedor', 'Mão-de-obra', 'value'];
     private $colunms = [
-        'name' => ['value' => 'Nome', 'aling' => 'left'],
-        'is_active' => ['value' => 'Status', 'aling' => 'left'],
-        'email' => ['value' => 'E-mail', 'aling' => 'left'],
+        'userName' => ['value' => 'Nome', 'aling' => 'left'],
+        'descriptionJob' => ['value' => 'Mão-de-obra', 'aling' => 'left'],
+        'value' => ['value' => 'Vlor do empréstimo', 'aling' => 'right'],
         'actions' => ['value' => 'Ações', 'aling' => 'center'],
     ];
 
-    public function __construct(User $model)
+    public function __construct(Debtor $model, User $modelUser, Job $modelJob)
     {
         $this->model = $model;
+        $this->modelUser = $modelUser;
+        $this->modelJob = $modelJob;
     }
+
 
     /**
      * Display a listing of the resource.
@@ -33,7 +38,7 @@ class UserController extends Controller
     public function index()
     {
         $colunmsTitle = $this->colunms;
-        $list = $this->model->paginate($this->totalPerPage);
+        $list = $this->model->getDevtorsJoin($this->totalPerPage);
         $routeName = $this->route;
         $page = "Lista de ". $this->page['plural'];
         $btnCaption = "Criar ".$this->page['singular'];
@@ -57,14 +62,12 @@ class UserController extends Controller
 
         $breadcrumb = [
             (object) ['url' => route('admin.home'), 'title' => 'Home',],
-            (object) ['url' => route('admin.users.index'), 'title' => 'Lista de '.$page['plural']],
+            (object) ['url' => route('admin.'.$routeName.'.index'), 'title' => 'Lista de '.$page['plural']],
             (object) ['url' => '', 'title' => "Adicionar ". $page['singular']],
         ];
-        $status = ['' => 'Selecione...', '1' => 'Ativo', '0' => 'Inativo'];
-        $statusAdm = ['' => 'Selecione...', '1' => 'Sim', '0' => 'Não'];
-        $jobs = [];
-
-        return view('admin.'.$routeName.'.create', compact('routeName', 'page', 'breadcrumb', 'status', 'statusAdm', 'jobs'));
+        $users = $this->modelUser->orderBy('name')->get();
+        $jobs = $this->modelJob->orderBy('description')->get();
+        return view('admin.'.$routeName.'.create', compact('routeName', 'page', 'breadcrumb', 'users', 'jobs'));
     }
 
     /**
@@ -75,13 +78,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if($this->model->newUserAdmin($request))
-            return redirect()->route('admin.users.index')->with(['color' => 'success', 'message' => 'Cadastro realizado com sucesso!']);
-        else
-            return redirect()
-                ->back()
-                ->with(['color' => 'danger', 'message' => 'Falha ao realizar cadasto!'])
-                ->withInput();
+        $dataForm = $request->all();
+        $dataForm['value'] = str_replace(',', '.', str_replace('.', '', $request->value)) ;
+        $insert = $this->model->create($dataForm);
+        if($insert){
+            return redirect()->route('admin.'.$this->route.'.index')->with(['color' => 'success', 'message' => 'Cadastro realizado com sucesso!']);
+        } else {
+            return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao realizar cadasto!']);
+        }
     }
 
     /**
@@ -90,12 +94,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request)
+    public function show($id)
     {
-        $register = $this->model->find($id);
-
+        $register = $this->model->with(['user', 'job'])->find($id);
         if(!$register)
-            return redirect()->back()->with(['color' => 'danger', 'message' => 'Cadastro inexistente!']);
+            return redirect()
+                ->back()
+                ->with(['color' => 'danger', 'message' => 'Falha ao editar! regitro inexistente.']);
 
         $routeName = $this->route;
         $page = $this->page;
@@ -106,12 +111,7 @@ class UserController extends Controller
             (object) ['url' => '', 'title' => "Detalhes do ". $page['singular']],
         ];
 
-        $delete = false;
-        if($request->delete ?? false){
-            $delete = true;
-        }
-
-        return view('admin.'.$routeName.'.show', compact('register', 'routeName', 'page', 'breadcrumb', 'delete'));
+        return view('admin.'.$routeName.'.show', compact('register', 'routeName', 'page', 'breadcrumb'));
     }
 
     /**
@@ -134,14 +134,12 @@ class UserController extends Controller
 
         $breadcrumb = [
             (object) ['url' => route('admin.home'), 'title' => 'Home',],
-            (object) ['url' => route('admin.users.index'), 'title' => 'Lista de '.$page['plural']],
+            (object) ['url' => route('admin.'.$routeName.'.index'), 'title' => 'Lista de '.$page['plural']],
             (object) ['url' => '', 'title' => "Editar ". $page['singular']],
         ];
-        $status = ['' => 'Selecione...', '1' => 'Ativo', '0' => 'Inativo'];
-        $statusAdm = ['' => 'Selecione...', '1' => 'Sim', '0' => 'Não'];
-        $jobs = [];
-
-        return view('admin.'.$routeName.'.edit', compact('routeName', 'page', 'breadcrumb', 'status', 'statusAdm', 'jobs', 'register'));
+        $users = $this->modelUser->orderBy('name')->get();
+        $jobs = $this->modelJob->orderBy('description')->get();
+        return view('admin.'.$routeName.'.edit', compact('register','routeName', 'page', 'breadcrumb', 'users', 'jobs'));
     }
 
     /**
@@ -160,38 +158,18 @@ class UserController extends Controller
                 ->back()
                 ->with('error', 'Falha ao editar. Registro inexistente!');
 
-        if($register->updateUserAdmin($request))
-            return redirect()->route('admin.users.index')->with(['color' => 'success', 'message' => 'Cadastro editado com sucesso!']);
+        $dataForm = $request->all();
+        $dataForm['value'] = str_replace(',', '.', str_replace('.', '', $request->value)) ;
+
+        if($register->update($dataForm))
+            return redirect()->route('admin.'.$this->route.'.index')->with(['color' => 'success', 'message' => 'Cadastro editado com sucesso!']);
         else
             return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao editar cadastro!'])->withInput();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $register = $this->model->find($id);
-
-        if(!$register)
-            return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao excluir registro! Registro inexistente.'])->withInput();
-
-        if($register->delete()){
-            return redirect()->route('admin.'.$this->route.'.index')->with(['color' => 'success', 'message' => 'Registro excluído com sucesso!']);
-        }else{
-            return redirect()->back()->with(['color' => 'danger', 'message' => 'Falha ao excluir registro.'])->withInput();
-        }
-
-    }
-
-
     public function search(Request $request)
     {
         $dataForm = $request->except('_token');
-
         $colunmsTitle = $this->colunms;
         $list = $this->model->search($request, $this->totalPerPage);
         $routeName = $this->route;

@@ -14,4 +14,10 @@ class Job extends Model
         $keySearch = $request->search;
         return $this->where('description', 'LIKE', "%{$keySearch}%")->paginate($totalPage);
     }
+
+
+    public function debtors()
+    {
+        return $this->hasMany(Debtor::class);
+    }
 }

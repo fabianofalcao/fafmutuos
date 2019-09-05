@@ -30,5 +30,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
 
     Route::any('economic_setors/search', 'EconomicSetorController@search')->name('economic_setors.search');
     Route::resource('/economic_setors', 'EconomicSetorController');
+
+    Route::any('debtors/search', 'DebtorController@search')->name('debtors.search');
+    Route::resource('/debtors', 'DebtorController');
 });
 
