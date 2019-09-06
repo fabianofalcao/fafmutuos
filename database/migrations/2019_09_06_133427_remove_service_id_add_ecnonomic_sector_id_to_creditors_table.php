@@ -16,7 +16,7 @@ class RemoveServiceIdAddEcnonomicSectorIdToCreditorsTable extends Migration
         Schema::table('creditors', function (Blueprint $table) {
             $table->dropForeign('creditors_service_id_foreign');
             $table->dropColumn('service_id');
-            $table->dropColumn('economic_setor_invest');
+            $table->dropColumn('economic_sector_invest');
             $table->bigInteger('economic_sector_id')->unsigned()->after('user_id');
             $table->foreign('economic_sector_id')->references('id')->on('economic_sectors')->onDelete('cascade');
         });
