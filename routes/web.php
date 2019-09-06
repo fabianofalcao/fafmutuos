@@ -33,5 +33,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
 
     Route::any('debtors/search', 'DebtorController@search')->name('debtors.search');
     Route::resource('/debtors', 'DebtorController');
+
+    Route::any('creditors/search', 'CreditorController@search')->name('creditors.search');
+    Route::resource('/creditors', 'CreditorController');
 });
 

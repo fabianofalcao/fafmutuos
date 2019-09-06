@@ -14,6 +14,11 @@ class EconomicSector extends Model
         $keySearch = $request->search;
         return $this->where('description', 'LIKE', "%{$keySearch}%")->paginate($totalPage);
     }
+
+    public function creditors()
+    {
+        return $this->hasMany(Creditor::class);
+    }
 }
 
 

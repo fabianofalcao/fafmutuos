@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04d65456-642b-4e58-8079-e9e484d5f9ac" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CreditorController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_09_06_133427_remove_service_id_add_ecnonomic_sector_id_to_creditors_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/creditors/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/creditors/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/master/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/master/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Creditor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Creditor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/EconomicSector.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/EconomicSector.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +128,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/debtors" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/creditors" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -135,11 +142,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev_php\fafmutuos\resources\views\admin\creditors" />
+      <recent name="C:\dev_php\fafmutuos\resources\views\admin\credtors" />
+      <recent name="C:\dev_php\fafmutuos\app\Http\Controllers\Admin" />
       <recent name="C:\dev_php\fafmutuos\resources\views\admin\debtors" />
       <recent name="C:\dev_php\fafmutuos\resources\views\admin\economic_setors" />
-      <recent name="C:\dev_php\fafmutuos\resources\views\admin\jobs" />
-      <recent name="C:\dev_php\fafmutuos\resources\views\admin\users" />
-      <recent name="C:\dev_php\fafmutuos\public\assets\admin\js" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -189,7 +196,8 @@
       <workItem from="1567443830987" duration="5581000" />
       <workItem from="1567515101143" duration="8332000" />
       <workItem from="1567599386665" duration="3592000" />
-      <workItem from="1567603956468" duration="10541000" />
+      <workItem from="1567603956468" duration="12890000" />
+      <workItem from="1567770862488" duration="2868000" />
     </task>
     <servers />
   </component>

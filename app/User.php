@@ -161,6 +161,11 @@ class User extends Authenticatable
         return $this->hasMany(Debtor::class);
     }
 
+    public function economic_sectors()
+    {
+        return $this->hasMany(Creditor::class);
+    }
+
     public function getZipcodeAttribute($value)
     {
         return substr($value, 0,5). '-' .substr($value, 5,3);
