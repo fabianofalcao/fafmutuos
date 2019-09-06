@@ -80,7 +80,6 @@ class CreditorController extends Controller
     {
         $dataForm = $request->all();
         $dataForm['value'] = str_replace(',', '.', str_replace('.', '', $request->value)) ;
-        dd($dataForm);
         $insert = $this->model->create($dataForm);
         if($insert){
             return redirect()->route('admin.'.$this->route.'.index')->with(['color' => 'success', 'message' => 'Cadastro realizado com sucesso!']);
@@ -97,7 +96,8 @@ class CreditorController extends Controller
      */
     public function show($id)
     {
-        $register = $this->model->with(['user', 'economic_sectors'])->find($id);
+        $register = $this->model->with(['user', 'economic_sector'])->find($id);
+        dd($register);
         if(!$register)
             return redirect()
                 ->back()
@@ -130,6 +130,8 @@ class CreditorController extends Controller
                 ->back()
                 ->with(['color' => 'danger', 'message' => 'Falha ao editar! regitro inexistente.']);
 
+        //dd($register);
+
         $routeName = $this->route;
         $page = $this->page;
 
@@ -139,6 +141,7 @@ class CreditorController extends Controller
             (object) ['url' => '', 'title' => "Editar ". $page['singular']],
         ];
         $users = $this->modelUser->orderBy('name')->get();
+        //dd($users, $register);
         $sectors = $this->modelSector->orderBy('description')->get();
         return view('admin.'.$routeName.'.edit', compact('register','routeName', 'page', 'breadcrumb', 'users', 'sectors'));
     }

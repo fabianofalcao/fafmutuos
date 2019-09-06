@@ -110,14 +110,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('admin.users.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>
-                                Usuários
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="{{route('admin.jobs.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-tasks"></i>
                             <p>
@@ -134,10 +126,26 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('admin.users.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Usuários
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{route('admin.debtors.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-dollar-sign"></i>
                             <p>
                                 Propostas de empréstimos
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('admin.creditors.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-hands-helping"></i>
+                            <p>
+                                Propostas de parcerias
                             </p>
                         </a>
                     </li>

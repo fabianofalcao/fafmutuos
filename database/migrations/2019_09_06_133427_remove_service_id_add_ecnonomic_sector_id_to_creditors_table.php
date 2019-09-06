@@ -34,7 +34,7 @@ class RemoveServiceIdAddEcnonomicSectorIdToCreditorsTable extends Migration
             $table->dropColumn('economic_sector_id');
             $table->bigInteger('service_id')->unsigned()->after('user_id');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
-            $table->string('economic_setor_invest')->after('service_id');
+            $table->string('economic_sector_invest')->after('service_id');
         });
     }
 }

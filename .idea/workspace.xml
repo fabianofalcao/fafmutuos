@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04d65456-642b-4e58-8079-e9e484d5f9ac" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/creditors/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CreditorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CreditorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Creditor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Creditor.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_06_133427_remove_service_id_add_ecnonomic_sector_id_to_creditors_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_09_06_133427_remove_service_id_add_ecnonomic_sector_id_to_creditors_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/creditors/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/creditors/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/debtors/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/debtors/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/master/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/master/app.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -190,7 +196,7 @@
       <workItem from="1567515101143" duration="8332000" />
       <workItem from="1567599386665" duration="3592000" />
       <workItem from="1567603956468" duration="12890000" />
-      <workItem from="1567770862488" duration="3338000" />
+      <workItem from="1567770862488" duration="8830000" />
     </task>
     <servers />
   </component>

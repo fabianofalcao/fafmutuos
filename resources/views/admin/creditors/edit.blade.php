@@ -41,33 +41,35 @@
                 @endif
 
                 <h4>Dados da proposta</h4>
+
+
+                    @foreach($users as $item)
+                        {{old('user_id'), $item->user_id}}
+                        {{(old('user_id') == $item->user_id ? $item->name :'')}}
+                    @endforeach
+
+
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group">
-                            <label for="user_id">Nome do cliente *</label>
+                            <label for="user_id">Nome do parceiro *</label>
                             <select name="user_id" id="user_id" class="form-control" required autofocus>
-                                <option value="">Selecione um cliente...</option>
+                                <option value="">Selecione um parceiro...</option>
                                 @foreach($users as $item)
-                                    <option value="{{$item->id}}" {{(old('user_id') == $item->id ? 'selected' : ($register->user_id == $item->id ? 'selected' : ''))}}>{{$item->name}}</option>
+                                    <option value="{{$item->id}}" {{($register->user_id == $item->id ? 'selected' : (old('user_id') == $item->id ? 'selected' : ''))}}>{{$item->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group">
-                            <label for="job_id">Mão-de-obra *</label>
-                            <select name="job_id" id="job_id" class="form-control" required>
-                                <option value="">Selecione uma mão de obra...</option>
-                                @foreach($jobs as $item)
-                                    <option value="{{$item->id}}" {{(old('job_id') == $item->id ? 'selected' : ($register->job_id == $item->id ? 'selected' : ''))}}>{{$item->description}}</option>
+                            <label for="economic_sector_id">Setor econômico *</label>
+                            <select name="economic_sector_id" id="economic_sector_id" class="form-control" required>
+                                <option value="">Selecione um setor econômico...</option>
+                                @foreach($sectors as $item)
+                                    <option value="{{$item->id}}" {{(old('economic_sector_id') == $item->id ? 'selected' : ($register->economic_sector_id == $item->id ? 'selected' : ''))}}>{{$item->description}}</option>
                                 @endforeach
                             </select>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label for="source_of_debt">Motivo do empréstimo *</label>
-                            <textarea name="source_of_debt" id="source_of_debt" class="form-control" cols="30" rows="5" placeholder="Descreva aqui o motivo do empréstimo" required>{{ old('source_of_debt') ?? ($register->source_of_debt ?? '') }}</textarea>
                         </div>
                     </div>
                     <div class="col-12">
