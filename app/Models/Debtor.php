@@ -13,6 +13,7 @@ class Debtor extends Model
 
     public function getDevtorsJoin($totalPage=5)
     {
+
         $debtors = $this->join('users', 'users.id', '=', 'debtors.user_id')
             ->join('jobs', 'jobs.id', '=', 'debtors.job_id')
             ->where('users.debtor', '=', true)

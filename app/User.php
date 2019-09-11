@@ -64,12 +64,11 @@ class User extends Authenticatable
 
         $data = $request->all();
         $data['user_id'] = $newUser->id;
-
-        if($newUser->debtor == 1){
+        if($newUser->debtor == 'Sim'){
             $newDebtor = $debtor->create($data);
         }
 
-        if($newUser->creditor == 1){
+        if($newUser->creditor == 'Sim'){
             $newCreditor = $creditor->create($data);
         }
 
