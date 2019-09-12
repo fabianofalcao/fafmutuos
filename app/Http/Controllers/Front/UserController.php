@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Requests\Front\FormUsers;
+use App\Models\EconomicSector;
 use App\Models\Job;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -36,9 +37,9 @@ class UserController extends Controller
     public function create(Request $request)
     {
         $type = $request->type;
-        $services = Service::orderBy('description', 'ASC')->get();
+        $economic_setors = EconomicSector::orderBy('description', 'ASC')->get();
         $jobs = Job::orderBy('description', 'ASC')->get();
-        return view('front.users.create', compact('type', 'services', 'jobs'));
+        return view('front.users.create', compact('type', 'economic_setors', 'jobs'));
     }
 
     /**

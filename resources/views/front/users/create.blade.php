@@ -222,6 +222,7 @@
                         </div>
                     </div>
                 @else
+                <!--
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group{{ $errors->has('economic_sector_invest') ? ' has-error' : '' }}">
@@ -235,15 +236,16 @@
                             </div>
                         </div>
                     </div>
+                -->
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group{{ $errors->has('service_id') ? ' has-error' : '' }}">
-                                <label for="service_id">Tipo de serviço</label>
-                                <select name="service_id" id="service_id" class="form-control">
-                                    <option value="">Selecione o tipo de serviço</option>
-                                    @foreach($services as $item)
-                                        <option value="{{$item->id}}" {{(old('service_id') == $item ? 'selected' : '')}}>{{$item->description}}</option>
+                            <div class="form-group{{ $errors->has('economic_sector_id') ? ' has-error' : '' }}">
+                                <label for="economic_sector_id">Setor econômico de interesse</label>
+                                <select name="economic_sector_id" id="economic_sector_id" class="form-control">
+                                    <option value="">Selecione o setor econômico</option>
+                                    @foreach($economic_setors as $item)
+                                        <option value="{{$item->id}}" {{(old('economic_sector_id') == $item ? 'selected' : '')}}>{{$item->description}}</option>
                                     @endforeach
                                 </select>
                             </div>
