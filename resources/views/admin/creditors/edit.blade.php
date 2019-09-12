@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <form class="form-horizontal" method="POST" action="{{ route('admin.debtors.update', [$register->id]) }}">
+        <form class="form-horizontal" method="POST" action="{{ route('admin.creditors.update', [$register->id]) }}">
             {{ csrf_field() }}
             @method('PUT')
 
@@ -43,10 +43,6 @@
                 <h4>Dados da proposta</h4>
 
 
-                    @foreach($users as $item)
-                        {{old('user_id'), $item->user_id}}
-                        {{(old('user_id') == $item->user_id ? $item->name :'')}}
-                    @endforeach
 
 
                 <div class="row">
