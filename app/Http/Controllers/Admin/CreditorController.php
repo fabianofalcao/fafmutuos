@@ -97,7 +97,7 @@ class CreditorController extends Controller
     public function show($id)
     {
         $register = $this->model->with(['user', 'economic_sector'])->find($id);
-        dd($register);
+        //dd($register);
         if(!$register)
             return redirect()
                 ->back()
